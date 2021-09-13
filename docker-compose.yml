@@ -1,0 +1,46 @@
+version: "3.7"
+
+services:
+  backend_ca:
+    build: .
+    container_name: backend_ca
+    stdin_open: true
+    tty: true
+    ports:
+      - "5000:5000"
+    volumes:
+      - "./:/app/build"
+    env_file:
+      - .env
+    depends_on:
+      - postgres_ca
+
+  postgres_ca:
+    image: postgres:13.4-alpine
+    container_name: postgres_ca
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  pgadmin_ca:
+    image: dpage/pgadmin4
+    container_name: pgadmin_ca
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=example@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=PGADMIN_DEFAULT_PASSWORD
+      - PGADMIN_LISTEN_PORT=5050
+    tty: true
+    stdin_open: true
+    restart: always
+    ports:
+      - "${PGADMIN_LISTEN_PORT:-5050}:${PGADMIN_LISTEN_PORT:-5050}"
+    depends_on:
+      - postgres_ca
+    links:
+      - postgres_ca
+
+volumes:
+  db_data: {}

@@ -1,0 +1,12 @@
+.pytest_cache
+.idea
+__pycache__
+venv
+
+app/db.sqlite3
+
+env/
+venv/
+
+.gitignore
+/tmp.py

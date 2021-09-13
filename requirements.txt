@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+beautifulsoup4
+requests
+sqlalchemy
+psycopg2-binary
+asyncpg
+alembic
+databases
+flake8
+flake8-builtins
+flake8-import-order
+flake8-print
